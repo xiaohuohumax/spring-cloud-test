@@ -1,0 +1,25 @@
+server:
+  port: 8000
+
+
+spring:
+  application:
+    name: spring-cloud-client-hello
+  cloud:
+    config:
+      name: dev # 获取配置文件的名称
+      profile: dev
+      discovery:
+        enabled: true # 开启配置服务发现，表示从eureka注册中心发现服务 (service-id)
+        service-id: spring-cloud-config
+      label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka,http://localhost1:7001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    hostname: localhost
+
